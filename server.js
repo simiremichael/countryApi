@@ -27,6 +27,7 @@ app.get('/detectCountry', async (req, res) => {
 app.get('/country/:countryName', async (req, res) => {
   try {
     const { countryName } = req.params;
+    console.log(countryName);
     const response = await axios.get(`http://api.geonames.org/searchJSON?q=${countryName}&maxRows=1&username=simiremichael`);
     res.json(response.data);
   } catch (error) {
