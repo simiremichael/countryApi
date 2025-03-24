@@ -24,10 +24,9 @@ app.get('/detectCountry', async (req, res) => {
   }
 });
 
-app.get('/country', async (req, res) => {
+app.get('/country:countryName', async (req, res) => {
   try {
     const { countryName } = req.params;
-    console.log(countryName);
     const response = await axios.get(`http://api.geonames.org/searchJSON?q=${countryName}&maxRows=1&username=simiremichael`);
     res.json(response.data);
   } catch (error) {
@@ -38,7 +37,7 @@ app.get('/country', async (req, res) => {
 app.get('/state', async (req, res) => {
   try {
     const { countryGeonameId } = req.params;
-    const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${countryGeonameId}&username=simiremichael`);
+    const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(countryGeonameId)}&username=simiremichael`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data from API 3' });
@@ -48,7 +47,7 @@ app.get('/state', async (req, res) => {
 app.get('/region', async (req, res) => {
   try {
     const { selectedStateId } = req.params;
-    const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${selectedStateId}&username=simiremichael`);
+    const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(selectedStateId)}&username=simiremichael`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data from API 4' });
