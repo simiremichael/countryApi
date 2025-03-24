@@ -34,7 +34,7 @@ app.get('/country/:countryName', async (req, res) => {
   }
 });
 
-app.get('/state', async (req, res) => {
+app.get('/state/:countryGeonameId', async (req, res) => {
       const { countryGeonameId } = req.params;
 
   try {
@@ -45,7 +45,7 @@ app.get('/state', async (req, res) => {
   }
 });
 
-app.get('/region', async (req, res) => {
+app.get('/region/:selectedStateId', async (req, res) => {
       const { selectedStateId } = req.params;
   try {
     const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(selectedStateId)}&username=simiremichael`);
@@ -55,7 +55,7 @@ app.get('/region', async (req, res) => {
   }
 });
 
-app.get('/area', async (req, res) => {
+app.get('/area/:selectedRegionCode', async (req, res) => {
         const { selectedRegionCode } = req.params;
   try {
     const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(selectedRegionCode)}&username=simiremichael`);
