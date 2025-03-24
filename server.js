@@ -24,11 +24,11 @@ app.get('/detectCountry', async (req, res) => {
   }
 });
 
-app.get('/country/:countryName', async (req, res) => {
+app.get('/country', async (req, res) => {
   try {
     const { countryName } = req.params;
-    const response = await axios.get(`http://api.geonames.org/searchJSON?q=Nigeria&maxRows=1&username=simiremichael`);
-    res.json(response.data);
+    const response = await axios.get(`http://api.geonames.org/searchJSON?q=${countryName.toString()}&maxRows=1&username=simiremichael`);
+    res.json({response, countryName: countryName});
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data from API 2' });
   }
