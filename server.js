@@ -6,12 +6,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Enable CORS for cross-origin requests
- app.use(cors(
-    {
-    origin: ["http://localhost:3000", "https://servix-app.netlify.app"], // Replace with your frontend's URL
+app.use(cors(
+  {
+    origin: ["http://localhost:3000", "https://www.servixhub.com", "https://www.residencespotter.com"], // Replace with your frontend's URL
     methods: ['GET'], // Allowed HTTP methods
   }
- ));
+));
 
 // Define routes to call the 4 APIs with countryCode parameter
 app.get('/detectCountry', async (req, res) => {
@@ -25,7 +25,7 @@ app.get('/detectCountry', async (req, res) => {
 });
 
 app.get('/country/:countryName', async (req, res) => {
-      const { countryName }  = req.params;
+  const { countryName } = req.params;
   try {
     const response = await axios.get(`http://api.geonames.org/searchJSON?q=${countryName}&maxRows=1&username=simiremichael`);
     res.json(response.data);
@@ -35,7 +35,7 @@ app.get('/country/:countryName', async (req, res) => {
 });
 
 app.get('/state/:countryGeonameId', async (req, res) => {
-      const { countryGeonameId } = req.params;
+  const { countryGeonameId } = req.params;
 
   try {
     const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(countryGeonameId)}&username=simiremichael`);
@@ -46,7 +46,7 @@ app.get('/state/:countryGeonameId', async (req, res) => {
 });
 
 app.get('/region/:selectedStateId', async (req, res) => {
-      const { selectedStateId } = req.params;
+  const { selectedStateId } = req.params;
   try {
     const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(selectedStateId)}&username=simiremichael`);
     res.json(response.data);
@@ -56,7 +56,7 @@ app.get('/region/:selectedStateId', async (req, res) => {
 });
 
 app.get('/area/:selectedRegionCode', async (req, res) => {
-        const { selectedRegionCode } = req.params;
+  const { selectedRegionCode } = req.params;
   try {
     const response = await axios.get(`http://api.geonames.org/childrenJSON?geonameId=${Number(selectedRegionCode)}&username=simiremichael`);
     res.json(response.data);
